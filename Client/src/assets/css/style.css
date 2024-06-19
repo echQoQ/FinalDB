@@ -1,0 +1,52 @@
+@font-face {
+  font-family: 'TitleFont';
+  src: url("../font/title.ttf") format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'TextFont';
+  src: url("../font/text.ttf") format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+:root {
+  --bg-color: #E1DCD6;
+  --text-color: #6B5B4D;
+  --text-soft-color: rgba(76,74,71, 1);
+  --text-strong-color: rgba(74,74,74, 1);
+  --subtle-color: rgba(250,249,248, 1);
+  --border-color: rgba(235,230,225, 1);
+  --shadow-color: rgba(199,189,180, 1);
+  --input-color: rgba(255,255,255, 1);
+  --outline-color: rgba(230,178,102, 1);
+  --mark-color: rgba(132,116,100, 0.08);
+  --special-color: rgba(132,116,100, 1);
+  --special-bg-color: rgba(136,120,103, 1);
+  --special-text-color: rgba(255,255,255, 1);
+  --special-shadow-color: rgba(88,81,73, 1);
+  --special-mark-color: rgba(255,255,255, 0.08);
+  --light-color: rgba(247,243,239, 1);
+  --dark-color: rgba(76,70,63, 1);
+  --text-color-rgb: 51,47,44;
+  --bg-color-rgb: 255,255,255;
+  --subtle-color-rgb: 250,249,248;
+  --special-color-rgb: 132,116,100;
+  --special-text-color-rgb: 255,255,255;
+  --special-bg-color-rgb: 136,120,103;
+  --shadow-color-rgb: 199,189,180;
+  --special-shadow-color-rgb: 88,81,73;
+  --outline-color-rgb: 230,178,102;
+  --dark-color-rgb: 76,70,63;
+  --light-color-rgb: 247,243,239;
+}
+
+body {
+  background-color: var(--bg-color);
+  margin: 0;
+  font-family: "TitleFont", sans-serif;
+  user-select: none;
+}
+input {
+  user-select: text;
+}
