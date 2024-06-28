@@ -151,11 +151,13 @@
 				limit: pageInfo.pageSize
 			})
 			if (res.data.status == 'success') {
+				console.log(res.data.data.messages)
 				messageList0.value = messageList0.value.concat(res.data.data.messages)
 				if (messageList0.value.length >= res.data.data.total) {
 					loading.value = false
 				}
 				pageInfo.cur = messageList0.value.length
+				console.log(pageInfo)
 			}
 		} catch (err) {
 			if (err.response) {

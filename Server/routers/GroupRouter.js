@@ -549,7 +549,7 @@ router.post('/group/join_request/list', async (req, res) => {
 router.post('/group/message/list', async (req, res) => {
     try {
         const { token } = req.headers;
-        const { group_id, page = 1, limit = 10 } = req.body;
+        const { group_id, start = 1, limit = 10 } = req.body;
 
         if (!group_id) {
             return res.status(400).send({
@@ -582,7 +582,7 @@ router.post('/group/message/list', async (req, res) => {
         }
 
         // 计算偏移量
-        const offset = (parseInt(page) - 1) * parseInt(limit);
+        const offset = start;
 
         // 查询群消息总数
         const totalResults = await query(
@@ -607,7 +607,7 @@ router.post('/group/message/list', async (req, res) => {
         res.status(200).send({
             status: 'success',
             data: {
-                page: parseInt(page),
+                start: parseInt(start),
                 limit: parseInt(limit),
                 total,
                 messages
