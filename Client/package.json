@@ -12,6 +12,7 @@
     "ant-design-vue": "^4.2.3",
     "axios": "^1.7.2",
     "sass": "^1.77.6",
+    "socket.io-client": "^4.7.5",
     "vfonts": "^0.0.3",
     "vue": "^3.4.21",
     "vue-router": "^4.3.3"

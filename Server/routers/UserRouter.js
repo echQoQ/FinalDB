@@ -89,7 +89,7 @@ router.post('/user/login', async (req, res) => {
 
         res.status(200).send({
             status: 'success',
-            data: { token, username }
+            data: { token, username, user_id }
         });
     } catch (err) {
         res.status(500).send({
@@ -189,6 +189,158 @@ router.get('/user/avatar', async (req, res) => {
     }
 });
 
+
+// 获取用户基本信息
+router.get('/user/info', async (req, res) => {
+    try {
+        const { token } = req.headers;
+
+        const user_id = await loadTokenUid(token);
+        if (!user_id) {
+            return res.status(401).send({
+                status: 'error',
+                message: 'Invalid token',
+                code: 401
+            });
+        }
+
+        const user = await query('SELECT user_id, username, avatar, last_login_time FROM Users WHERE user_id = ?', [user_id]);
+        if (user.length === 0) {
+            return res.status(404).send({
+                status: 'error',
+                message: 'User not found',
+                code: 404
+            });
+        }
+
+        res.status(200).send({
+            status: 'success',
+            data: user[0]
+        });
+    } catch (err) {
+        res.status(500).send({
+            status: 'error',
+            message: err.message,
+            code: 500
+        });
+    }
+});
+
+// 修改用户基本信息
+router.post('/user/update/info', async (req, res) => {
+    try {
+        const { token } = req.headers;
+        const { username, avatar } = req.body;
+
+        if (!username && !avatar) {
+            return res.status(400).send({
+                status: 'error',
+                message: 'Username or avatar is required',
+                code: 400
+            });
+        }
+
+        const user_id = await loadTokenUid(token);
+        if (!user_id) {
+            return res.status(401).send({
+                status: 'error',
+                message: 'Invalid token',
+                code: 401
+            });
+        }
+
+        // 检查新用户名是否已被使用（排除当前用户）
+        if (username) {
+            const existingUser = await query('SELECT * FROM Users WHERE username = ? AND user_id != ?', [username, user_id]);
+            if (existingUser.length > 0) {
+                return res.status(400).send({
+                    status: 'error',
+                    message: 'Username already exists',
+                    code: 400
+                });
+            }
+        }
+
+        // 更新用户信息
+        const updates = [];
+        const values = [];
+
+        if (username) {
+            updates.push('username = ?');
+            values.push(username);
+        }
+
+        if (avatar) {
+            updates.push('avatar = ?');
+            values.push(avatar);
+        }
+
+        values.push(user_id);
+
+        await query(`UPDATE Users SET ${updates.join(', ')} WHERE user_id = ?`, values);
+
+        res.status(200).send({
+            status: 'success',
+            message: 'User information updated successfully'
+        });
+    } catch (err) {
+        res.status(500).send({
+            status: 'error',
+            message: err.message,
+            code: 500
+        });
+    }
+});
+
+
+// 修改密码
+router.post('/user/update/password', async (req, res) => {
+    try {
+        const { token } = req.headers;
+        const { old_password, new_password } = req.body;
+
+        if (!old_password || !new_password) {
+            return res.status(400).send({
+                status: 'error',
+                message: 'Old password and new password are required',
+                code: 400
+            });
+        }
+
+        const user_id = await loadTokenUid(token);
+        if (!user_id) {
+            return res.status(401).send({
+                status: 'error',
+                message: 'Invalid token',
+                code: 401
+            });
+        }
+
+        // 验证旧密码
+        const user = await query('SELECT password FROM Users WHERE user_id = ?', [user_id]);
+        if (user.length === 0 || user[0].password !== md5(old_password)) {
+            return res.status(400).send({
+                status: 'error',
+                message: 'Old password is incorrect',
+                code: 400
+            });
+        }
+
+        // 更新密码
+        await query('UPDATE Users SET password = ? WHERE user_id = ?', [md5(new_password), user_id]);
+
+        res.status(200).send({
+            status: 'success',
+            message: 'Password updated successfully'
+        });
+    } catch (err) {
+        res.status(500).send({
+            status: 'error',
+            message: err.message,
+            code: 500
+        });
+    }
+});
 
 
 module.exports = router;

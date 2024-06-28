@@ -218,7 +218,7 @@
 	  padding: 30px 40px 40px 40px;
 	  text-align: center;
 	  position: relative;
-	  background: url("../assets/img/bg4_1.png") no-repeat;
+	  background: url("@/assets/img/bg4_1.png") no-repeat;
 	  border-radius: 18px;
 	  overflow: hidden;
 	  button {

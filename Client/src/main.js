@@ -16,7 +16,7 @@ app.use(router)
 app.use(Antd)
 
 
-axios.defaults.baseURL = import.meta.env.VITE_SERVER_URL
+axios.defaults.baseURL = import.meta.env.VITE_SERVER_URL + '/api'
 
 axios.interceptors.request.use((config) => {
     config.headers.token = sessionStorage.getItem("token")

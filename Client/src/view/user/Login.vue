@@ -96,8 +96,12 @@
 		if (res.status == 200 && res.data.status === "success") {
 			notify("Hello, " + res.data.data.username + "!")
 			formRef.value.resetFields();
+			sessionStorage.setItem("user_id", res.data.data.user_id)
 			sessionStorage.setItem("username", res.data.data.username)
 			sessionStorage.setItem("token", res.data.data.token)
+			router.push({
+				name: 'dashboard'
+			})
 		}
 	  } catch(err) {
 		if (err.response) {
@@ -133,7 +137,7 @@
 	  padding: 30px 40px 40px 40px;
 	  text-align: center;
 	  position: relative;
-	  background: url("../assets/img/bg4_1.png") no-repeat;
+	  background: url("@/assets/img/bg4_1.png") no-repeat;
 	  border-radius: 18px;
 	  overflow: hidden;
 	  button {

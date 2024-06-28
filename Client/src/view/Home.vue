@@ -21,6 +21,7 @@
 			</div>
 			<div v-else>
 			  <a-button @click="logout" size="large" type="primary" class="btn">登出</a-button>
+			  <a-button @click="turnToPage('dashboard')" size="large" type="primary" class="btn">控制台</a-button>
 			</div>
 		  </div>
 		</div>
