@@ -156,7 +156,6 @@
 
 	const updateUserInfo = async () => {
 		try {
-			console.log(formInfo)
 			let res = await axios.post("user/update/info", {
 				username:formInfo.username,
 				avatar:formInfo.avatar

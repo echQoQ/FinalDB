@@ -121,7 +121,6 @@
 				formInfo.group_avatar = "/avatar/groups/default.jpg"
 				formInfo.group_name = ""
 			}
-			console.log(res)
 		} catch(err) {
 			if (err.response) {
 				notify("Error: " + (err.response.data.message), 'error');

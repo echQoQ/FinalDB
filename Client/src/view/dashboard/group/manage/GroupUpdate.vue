@@ -80,7 +80,6 @@
 	onMounted(async () => {
 		group_id = sessionStorage.getItem('group_id')
 		await loadGroupDetails()
-		console.log(groupInfo)
 	})
 
 	const loadGroupDetails = async () => {

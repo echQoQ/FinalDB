@@ -110,7 +110,7 @@
 	})
 	const pageInfo = reactive({
 		cur: 0,
-		pageSize: 9,
+		pageSize: 7,
 		total: 0
 	})
 	const messageList0 = ref([])
@@ -155,7 +155,6 @@
 				if (messageList0.value.length >= res.data.data.total) {
 					loading.value = false
 				}
-				console.log(messageList0.value)
 				pageInfo.cur = messageList0.value.length
 			}
 		} catch (err) {

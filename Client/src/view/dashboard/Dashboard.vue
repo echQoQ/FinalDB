@@ -116,10 +116,6 @@
 			name: 'home',
 		})
 	}
-
-	watch(openKeys, val => {
-		console.log('openKeys', val);
-	});
 </script>
 <style lang="scss" scoped>
 .header {

@@ -84,7 +84,6 @@
 	})
 
 	const handleClick = e => {
-		console.log('click', e.key);
 		router.push({
 			name: e.key,
 			query: {
@@ -112,7 +111,6 @@
 			groupInfo.group_name = res.data.data.group.group_name
 			groupInfo.group_avatar = server_url + res.data.data.group.group_avatar
 			groupInfo.description = res.data.data.group.description
-			console.log('已重新加载',groupInfo)
 			}
 		} catch (err) {
 			if (err.response) {
